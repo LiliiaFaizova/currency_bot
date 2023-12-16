@@ -1,0 +1,153 @@
+openapi: 3.0.0
+info:
+  title: currency
+  version: 1.0.0
+
+servers:
+- url: https://d5detadf1prvd301k0p5.apigw.yandexcloud.net
+paths:
+  /get_rates/{currency_code}:
+    get:
+      summary: Выводит валюту и ее отношение к основным валютам
+      parameters:
+        - name: currency_code
+          in: path
+          required: true
+          schema:
+            type: string
+            default: USD          
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: d4e2gd7bagmled5rekaj
+        service_account_id: ajefbgsciq3qgcfo4rd5
+      responses:
+        200:
+          description: "Данные о валюте получены"
+        default:
+          description: "Ошибка запроса"
+  /compare_currencies/{currency_code1}-{currency_code2}:
+    get:
+      summary: Выводит сравнение двух валют
+      parameters:
+        - name: currency_code1
+          in: path
+          required: true
+          schema:
+            type: string
+            default: USD  
+        - name: currency_code2
+          in: path
+          required: true
+          schema:
+            type: string
+            default: RUB             
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: d4e2gd7bagmled5rekaj
+        service_account_id: ajefbgsciq3qgcfo4rd5
+      responses:
+        200:
+          description: "Данные о валютах получены"
+        default:
+          description: "Ошибка запроса"  
+  /currency_on_date/{currency_code}-{date}:
+    get:
+      summary: Показывает валюту и ее отношение к другим валютам в опредененный день
+      parameters:
+        - name: currency_code
+          in: path
+          required: true
+          schema:
+            type: string
+            default: USD  
+        - name: date
+          in: path
+          required: true
+          schema:
+            type: string            
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: d4e2gd7bagmled5rekaj
+        service_account_id: ajefbgsciq3qgcfo4rd5
+      responses:
+        200:
+          description: "Данные о валюте получены"
+  /compare_currencies_on_date/{currency_code1}-{currency_code2}-{date}:
+    get:
+      summary: Выводит сравнение двух валют
+      parameters:
+        - name: currency_code1
+          in: path
+          required: true
+          schema:
+            type: string
+            default: USD  
+        - name: currency_code2
+          in: path
+          required: true
+          schema:
+            type: string
+            default: RUB
+        - name: date
+          in: path
+          required: true
+          schema:
+            type: string            
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: d4e2gd7bagmled5rekaj
+        service_account_id: ajefbgsciq3qgcfo4rd5 
+      responses:
+        200:
+          description: "Данные о валюте получены"
+  /create_plot/{currency_code}:
+    get:
+      summary: Рисует график, отображающий историческое изменение значения конкретной валюты.
+      parameters:
+        - name: currency_code
+          in: path
+          required: true
+          schema:
+            type: string
+            default: USD  
+      x-yc-apigateway-integration:
+          type: cloud_functions
+          function_id: d4e2gd7bagmled5rekaj
+          service_account_id: ajefbgsciq3qgcfo4rd5
+      responses:
+        200:
+          description: "Данные о валюте получены"
+  /transaction_details/{userID}-{currency_code}-{amount}-{operation_type}:
+    post:
+      summary: Сохраняет данные о сделке (коды валют, количество, тип операции)
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: string 
+        - name: currency_code
+          in: path
+          required: true
+          schema:
+            type: string
+            default: USD 
+        - name: amount
+          in: path
+          required: true
+          schema:
+            type: integer
+            default: 0
+        - name: operation_type
+          in: path
+          required: true
+          schema:
+            type: boolean
+            default: 0           
+      x-yc-apigateway-integration:
+          type: cloud_functions
+          function_id: d4e2gd7bagmled5rekaj
+          service_account_id: ajefbgsciq3qgcfo4rd5
+      responses:
+        200:
+          description: "Данные о валюте получены"
